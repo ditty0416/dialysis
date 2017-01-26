@@ -117,7 +117,7 @@ class Application(tk.Tk):
 
     def __uploadfw(self):
         if self.selectpath:
-            self.url="http://scienvet.southeastasia.cloudapp.azure.com:7120/firmware/firmware_helper"
+            self.url="http://scienvet.southeastasia.cloudapp.azure.com:7120"
             #self.post_para = {"filename":self.filename,'version':self.ver}
             self.post_para = {"filename":self.filename,'version':self.ver,'md5chksum':self.md5}
             self.file_para = {'file':open(self.dirname+'/'+self.filename,'rb')}
@@ -139,7 +139,7 @@ class Application(tk.Tk):
     def __listfw(self):
         self.textbox.delete('1.0', tk.END) # delete all
 
-        self.r = requests.get('http://scienvet.southeastasia.cloudapp.azure.com:7120/firmware/firmware_list')
+        self.r = requests.get('http://scienvet.southeastasia.cloudapp.azure.com:7120')
         if (200 == self.r.status_code):
             self.textbox.insert(tk.END, 'Get Firmware List Success\n')
             self.firmware_dict = json.loads(self.r.text)
@@ -153,7 +153,7 @@ class Application(tk.Tk):
                     self.textbox.insert(tk.END, 'Version:')
                     self.textbox.insert(tk.END, j)
                     self.textbox.insert(tk.END, '\n')
-                
+
         elif (400 == self.r.status_code):
             self.textbox.insert(tk.END, '\n\nBad Request(parameter error)\n')
         elif (500 == self.r.status_code):
